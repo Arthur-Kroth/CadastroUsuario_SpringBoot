@@ -1,6 +1,10 @@
 package com.cadastro_usuario.business;
 
+import java.util.List;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import com.cadastro_usuario.infrastructure.entity.User;
 import com.cadastro_usuario.infrastructure.repository.UserRepository;
 
@@ -13,8 +17,14 @@ public class UserService {
         this.repository = repository;
     }
 
-    public void createUser(User user) {
+    public List<User> createUser(User user) {
         repository.saveAndFlush(user);
+        return listUsers();
+    }
+
+    public List<User> listUsers() {
+        Sort sort = Sort.by("name").ascending();
+        return repository.findAll(sort);
     }
 
     public User getUserByEmail(String email) {
@@ -23,11 +33,12 @@ public class UserService {
         );
     }
 
-    public void deleteUserByEmail(String email) {
+    public List<User> deleteUserByEmail(String email) {
         repository.deleteByEmail(email);
+        return listUsers();
     }
 
-    public void updateUserById(Integer id, User user) {
+    public List<User> updateUserById(Integer id, User user) {
         User userEntity = repository.findById(id).orElseThrow(
             () -> new RuntimeException("User not found")
         );
@@ -37,5 +48,6 @@ public class UserService {
              .id(userEntity.getId())
              .build();
         repository.saveAndFlush(userUpdated);
+        return listUsers();
     }
 }
