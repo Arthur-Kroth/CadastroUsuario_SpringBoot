@@ -1,5 +1,5 @@
 <h1 align="center">
-  TODO List
+  User Registration
 </h1>
 
 A complete REST API for user registration, allowing you to create, list, update, and remove users in a simple, efficient, and scalable way. Developed with good architectural practices and modern standards, the application facilitates user registration management and can be easily integrated with different frontend interfaces.
