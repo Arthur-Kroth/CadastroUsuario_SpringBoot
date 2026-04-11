@@ -1,5 +1,7 @@
 package com.cadastro_usuario.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +27,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<Void> createUser(@RequestBody User user) {
-        userService.createUser(user);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<User>> createUser(@RequestBody User user) {
+        List<User> users = userService.createUser(user);
+        return ResponseEntity.ok(users);
     }
     
     @GetMapping
@@ -36,15 +38,15 @@ public class UserController {
     }
     
     @PutMapping
-    public ResponseEntity<Void> updateUserById(@RequestParam Integer id, @RequestBody User user) {
-        userService.updateUserById(id, user);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<User>> updateUserById(@RequestParam Integer id, @RequestBody User user) {
+        List<User> users = userService.updateUserById(id, user);
+        return ResponseEntity.ok(users);
     }
     
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteUserByEmail(@RequestParam String email) {
-        userService.deleteUserByEmail(email);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<User>> deleteUserByEmail(@RequestParam String email) {
+        List<User> users = userService.deleteUserByEmail(email);
+        return ResponseEntity.ok(users);
     }
 }
